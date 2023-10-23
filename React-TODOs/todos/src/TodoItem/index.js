@@ -1,4 +1,4 @@
-import './css/TodoItem.css'
+import './TodoItem.css'
 import { IoClose,IoCheckmarkDoneSharp } from "react-icons/io5";
 
 function TodoItem({completed, text, onComplete, onDelete}) {

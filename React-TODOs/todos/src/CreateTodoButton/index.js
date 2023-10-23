@@ -1,4 +1,4 @@
-import "./css/CreatTodoButton.css"
+import './CreatTodoButton.css';
 
 function CreateTodoButton() {
     return(
