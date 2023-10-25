@@ -46,3 +46,18 @@ function useLocalStorage(itemName, initialValue) {
 }
 
 export { useLocalStorage };
+
+/*
+const defaultTodos = [
+  {text: "Cortar cebolla", completed: true},
+  {text: "Tomar el curso introducción React.js", completed: false},
+  {text: "Llorar con la Llorona", completed: false},
+  {text: "LALALALALA", completed: true},
+  {text: "Llamar por telefono", completed: true},
+  {text:"Levantarte en la mañana", completed: false}
+];
+
+localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
+localStorage.removeItem('TODOS_V1')*/
+
+//hagamos un custom huge del local storage
