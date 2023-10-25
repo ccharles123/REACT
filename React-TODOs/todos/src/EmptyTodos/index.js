@@ -2,7 +2,7 @@
 
 function EmptyTodos() {
     return(
-        <p>Error...</p>
+        <p>Ninguna de las TODO coincide con los elemento de busqueda...</p>
     );
   }
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import './TodoSeach.css'
+import './TodoSeach.css';
+import {TodoContext} from '../TodoContext'
 
-function TodoSearch({
-  searchValue, 
-  setSearchValue
-}) {
+function TodoSearch() {
+  const { searchValue, setSearchValue} = React.useContext(TodoContext);
     return(
       <input 
       placeholder="Ingresa la ToDo a buscar..." 
