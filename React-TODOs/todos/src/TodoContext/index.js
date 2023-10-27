@@ -1,5 +1,6 @@
 import React from "react";
 import {useLocalStorage} from './useLocalStorage'
+import swal from "sweetalert";
 
 const TodoContext = React.createContext();
 
@@ -12,14 +13,26 @@ function TodoProvider({children}) {
     const completedTodos = todos.filter(todo => !!todo.completed).length;
     const totalTodos = todos.length;
 
-    const searchedTodos = todos.filter(
-        (todo) => {
+    const searchedTodos = todos.filter((todo) => {
         const todoText = todo.text.toLowerCase();
         const searchText = searchValue.toLowerCase();
-        
-        return todoText.includes(searchText);     
+        return todoText.includes(searchText);
+    });
+
+    const addTodo = (text) => {
+        if (text.trim() === '') {
+            swal({
+                text: "Favor ingresar la nueva TODO",
+                icon: "warning",
+                button: "Aceptar",
+            });
+            
+            return;
         }
-    );
+        const newTodos = [...todos];
+        newTodos.push({text, completed: false,});
+        saveTodos(newTodos);  
+    };
 
     const completeTodo = (text) => {
         const newTodos = [...todos];
@@ -52,6 +65,7 @@ function TodoProvider({children}) {
             deleteTodo,
             openModal,
             setOpenModal,
+            addTodo,
         }}>
             {children}
         </TodoContext.Provider>
