@@ -2,7 +2,7 @@
 
 function EmptyTodos() {
     return(
-        <p>No tienes niguna TODO...</p>
+        <p>No tienes ninguna TODO...</p>
     );
   }
 

@@ -17,6 +17,10 @@ function TodoForm(){
             setOpenModal(false);
         };
 
+    const retornar = () => {
+        setOpenModal(true);
+    }
+
     const onCancel = (event) => {
         setOpenModal(false)
     };

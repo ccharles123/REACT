@@ -21,17 +21,14 @@ function TodoProvider({children}) {
 
     const addTodo = (text) => {
         if (text.trim() === '') {
-            swal({
-                text: "Favor ingresar la nueva TODO",
-                icon: "warning",
-                button: "Aceptar",
-            });
-            
+            swal("¡Campo no diligenciado!", "", "warning"); 
             return;
+        }else {
+            const newTodos = [...todos];
+            newTodos.push({ text, completed: false });
+            saveTodos(newTodos);
+            swal("ToDo Agregada", "", "success");
         }
-        const newTodos = [...todos];
-        newTodos.push({text, completed: false,});
-        saveTodos(newTodos);  
     };
 
     const completeTodo = (text) => {
