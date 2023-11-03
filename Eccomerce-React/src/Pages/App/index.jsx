@@ -5,27 +5,27 @@ import MyOrder from '../MyOrder';
 import MyOrders from '../MyOrders';
 import NotFound from '../NotFound';
 import SignIn from '../SignIn';
+import Navbar from '../../Components/Navbar';
 import './App.css';
 
 const AppRoutes = () => {
   let routes = useRoutes([
     { path:'/', element: <Home /> },
-    { path:'/My-Account', element: <MyAccount /> },
-    { path:'/My-Order', element: <MyOrder /> },
-    { path:'/My-Orders', element: <MyOrders /> },
-    { path:'/Sign-In', element: <SignIn /> },
+    { path:'/my-account', element: <MyAccount /> },
+    { path:'/my-order', element: <MyOrder /> },
+    { path:'/my-orders', element: <MyOrders /> },
+    { path:'/sign-in', element: <SignIn /> },
     { path:'/*', element: <NotFound /> },
   ])
 
   return routes
 }
 
-
-
 const App = () =>{
   return (
     <BrowserRouter>
-    <AppRoutes/>
+      <AppRoutes />
+      <Navbar />
     </BrowserRouter>
   )
 }
