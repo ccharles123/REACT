@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../../Components/Layout";
 import Card from "../../Components/Card";
+import ProductDetail from "../../Components/ProductDetail";
 
 const apiUrl = "https://fakestoreapi.com"
 
@@ -33,7 +34,9 @@ function Home() {
             ))
           }
         </div>
+        <ProductDetail />
       </Layout>
+
   )
 }
 
