@@ -5,9 +5,8 @@ import { ShoppingCardContext } from '../../Context';
 const Card = (data) => {
 
     const {
-        setCount,
-        count,
-        showProduct
+        showProduct,
+        addCartProductsToCart
     } = React.useContext(ShoppingCardContext) 
 
 
@@ -22,7 +21,7 @@ const Card = (data) => {
         className='absolute top-0 right-0 flex justify-center items-center bg-slate-200 w-6 h-6 rounded-full m-2 p-1 z-1'
         onClick={
             () => 
-            setCount(count + 1)
+            addCartProductsToCart(data.data)
             }>
         <div><PlusIcon className="h-6 w-6 text-black" /></div>
         </div>
