@@ -36,7 +36,19 @@ function ShoppingCardProvider({children}) {
         openCheckoutSideMenu()
         closeProductDetails()
         setCount(count + 1)
-        setCartProduct([...cartProduct, productData])
+        
+  // Verifica si el producto ya está en el carrito
+        const existingProductIndex = cartProduct.findIndex((product) => product.id === productData.id);
+
+        if (existingProductIndex !== -1) {
+            // Si el producto ya está en el carrito, aumenta la cantidad
+            const updatedCartProduct = [...cartProduct];
+            updatedCartProduct[existingProductIndex].quantity += 1;
+            setCartProduct(updatedCartProduct);
+        } else {
+            // Si el producto no está en el carrito, agrégalo con cantidad 1
+            setCartProduct([...cartProduct, { ...productData, quantity: 1 }]);
+        }
     }
 
     console.log("CART", cartProduct)
