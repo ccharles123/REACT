@@ -56,16 +56,21 @@ function ShoppingCardProvider({children}) {
         }
     }
 
-    const handleCheckout = ()=>{ 
+    const handleCheckout = () => { 
         const orderToAdd ={
-            data: "01.02.2023",
-            product: cartProduct,
-            totalProduct: cartProduct.length,
+            data: "01.02.23",
+            products: cartProduct,
+            totalProducts: cartProduct.length,
             totalPrice: totalprice(cartProduct)
         }
-        setOrder([...order + orderToAdd])
+        setOrder([...order, orderToAdd])
         setCartProduct([])
+        setCount(0)
     }
+
+
+    console.log("cartProduct", cartProduct)
+    console.log("Order", order)
 
     return(
         <ShoppingCardContext.Provider value={{
@@ -83,7 +88,8 @@ function ShoppingCardProvider({children}) {
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
             isCheckoutSideMenuOpen,
-            handleCheckout
+            handleCheckout,
+            order,
         }}>
             {children}
         </ShoppingCardContext.Provider>

@@ -1,5 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { ShoppingCardContext } from '../../Context';
 import OrderCard from '../OrderCard';
 import {totalprice} from '../../Utils'
@@ -19,9 +20,6 @@ const CheckoutSideMenu = () =>{
         const filteredProducts = cartProduct.filter(product => product.id != id);
         setCartProduct(filteredProducts)
     }
-
-    
-
     return(
         <aside 
         className={`${isCheckoutSideMenuOpen ? 'checkoutSideMenuOpen' : 'checkoutSideMenuClosed'} checkoutSideMenu flex-col fixed right-0 border border-black rounded-lg bg-white`}>
@@ -49,7 +47,9 @@ const CheckoutSideMenu = () =>{
                     <samp className='font-medium'>Total:</samp>
                     <span className='font-medium text-2xl'>${totalprice(cartProduct)}</span>
                 </p>
-                <button className={'bg-black py-3 text-white rounded-lg w-full'} onClick={()=>handleCheckout()}>Checkout</button>
+                <Link to='/my-orders/last' >
+                    <button className={'bg-black py-3 text-white rounded-lg w-full'} onClick={()=>handleCheckout()}>Checkout</button>
+                </Link>
             </div>
         </aside>
     )
