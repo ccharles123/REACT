@@ -1,4 +1,5 @@
 import React from "react";
+import { totalprice } from "../Utils";
 
 
 const ShoppingCardContext = React.createContext();
@@ -24,14 +25,18 @@ function ShoppingCardProvider({children}) {
     //Product Detail * Show product
     const [productToShow, setProductToShow] = React.useState({});
 
-    //agregar producto en nuestro carrito:
+    //Shopping Cart: Add product to cart
     const [cartProduct, setCartProduct] = React.useState([]);
+
+    //Shopping Cart: Order
+    const [order, setOrder] = React.useState([]);
 
     const showProduct = (productDetail)=>{
         openProductDetails()
         closeCheckoutSideMenu()
         setProductToShow(productDetail.data)
     }
+
     const addCartProductsToCart = (productData)=>{
         openCheckoutSideMenu()
         closeProductDetails()
@@ -51,10 +56,16 @@ function ShoppingCardProvider({children}) {
         }
     }
 
-    console.log("CART", cartProduct)
-
-
-    console.log("PRODUCT TO SHOW",productToShow)
+    const handleCheckout = ()=>{ 
+        const orderToAdd ={
+            data: "01.02.2023",
+            product: cartProduct,
+            totalProduct: cartProduct.length,
+            totalPrice: totalprice(cartProduct)
+        }
+        setOrder([...order + orderToAdd])
+        setCartProduct([])
+    }
 
     return(
         <ShoppingCardContext.Provider value={{
@@ -72,6 +83,7 @@ function ShoppingCardProvider({children}) {
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
             isCheckoutSideMenuOpen,
+            handleCheckout
         }}>
             {children}
         </ShoppingCardContext.Provider>

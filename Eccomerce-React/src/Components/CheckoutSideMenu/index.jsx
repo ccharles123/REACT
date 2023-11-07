@@ -11,7 +11,8 @@ const CheckoutSideMenu = () =>{
         isCheckoutSideMenuOpen,
         closeCheckoutSideMenu,
         cartProduct,
-        setCartProduct
+        setCartProduct,
+        handleCheckout
     } = React.useContext(ShoppingCardContext)
 
     const handleDelete = (id) =>{
@@ -28,7 +29,7 @@ const CheckoutSideMenu = () =>{
                 <h2 className='font-medium text-xl'>My Order</h2>
                 <div onClick={()=> closeCheckoutSideMenu()} ><XMarkIcon className="h-6 w-6 text-black cursor-pointer" /></div>
             </div>
-            <div className='px-6'>
+            <div className='px-6 overflow-y-scroll max-h-[70%]'>
                 {
                     cartProduct.map(product=>(
                         <OrderCard
@@ -43,12 +44,12 @@ const CheckoutSideMenu = () =>{
                         ))
                 }
             </div>
-            <div className='px-6'>
-                <p className='flex justify-between items-center'>
-                    <samp className='font-light '>Total:</samp>
+            <div className='px-6 absolute bottom-0 w-[100%] mb-6'>
+                <p className='flex justify-between items-center bg-white mb-2'>
+                    <samp className='font-medium'>Total:</samp>
                     <span className='font-medium text-2xl'>${totalprice(cartProduct)}</span>
                 </p>
-
+                <button className={'bg-black py-3 text-white rounded-lg w-full'} onClick={()=>handleCheckout()}>Checkout</button>
             </div>
         </aside>
     )
