@@ -34,21 +34,21 @@ function ShoppingCardProvider({children}) {
     //Shopping Cart: Order
     const [order, setOrder] = React.useState([]);
 
-    //consumir nuestra appi
+    //consumir nuestra API
     const apiUrl = "https://fakestoreapi.com"
     const [items, setItems] = useState(null)
 
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(`${apiUrl}/products`)
-          const data = await response.json()
-          setItems(data)
-        } catch (error) {
-          console.error(`Oh no, ocurrió un error: ${error}`);
-        }
-      }
-      fetchData()
+    const fetchData = async () => {
+    try {
+        const response = await fetch(`${apiUrl}/products`)
+        const data = await response.json()
+        setItems(data)
+    } catch (error) {
+        console.error(`Oh no, ocurrió un error: ${error}`);
+    }
+    }
+    fetchData()
     }, [])
 
     const showProduct = (productDetail)=>{
@@ -80,25 +80,26 @@ function ShoppingCardProvider({children}) {
         if (cartProduct.length === 0) {
             swal("Agregar producto", "", "warning")
         } else {
-        const currentDate = new Date();
-        const formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${currentDate.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-        })}`;
-        const orderToAdd ={
-            data: formattedDate,
-            products: cartProduct,
-            totalProducts: cartProduct.length,
-            totalPrice: totalprice(cartProduct)
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${currentDate.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+            })}`;
+            const orderToAdd ={
+                data: formattedDate,
+                products: cartProduct,
+                totalProducts: cartProduct.length,
+                totalPrice: totalprice(cartProduct)
+            }
+            // Agregar el nuevo pedido al principio de la lista de pedidos
+            setOrder([orderToAdd, ...order]);
+            setCartProduct([])
+            swal("Orden agregada", "", "success")
+            setCount(0)
+            closeCheckoutSideMenu()
         }
-        // Agregar el nuevo pedido al principio de la lista de pedidos
-        setOrder([orderToAdd, ...order]);
-        setCartProduct([])
-        swal("Orden Agregada Exitosamente", "", "success")
-        setCount(0)
-        closeCheckoutSideMenu()
-    }}
+    }
     
     console.log("cartProduct", cartProduct)
     console.log("Order", order)

@@ -15,7 +15,6 @@ const CheckoutSideMenu = () =>{
         cartProduct,
         setCartProduct,
         handleCheckout,
-        order, 
         setCount
     } = React.useContext(ShoppingCardContext)
 
@@ -58,7 +57,7 @@ const CheckoutSideMenu = () =>{
                     <samp className='font-medium'>Total:</samp>
                     <span className='font-medium text-2xl'>${totalprice(cartProduct)}</span>
                 </p>
-                <Link to={order.length > 0 ? '/my-orders/last' : '/'} >
+                <Link to={cartProduct.length === 0? '/' : '/my-orders/last' } >
                     <button className={'bg-black py-3 text-white rounded-lg w-full'} onClick={()=>handleCheckout()}>Checkout</button>
                 </Link>
             </div>
