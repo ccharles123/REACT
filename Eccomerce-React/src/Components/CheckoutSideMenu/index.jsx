@@ -1,6 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useEffect } from "react";
 import { ShoppingCardContext } from '../../Context';
 import OrderCard from '../OrderCard';
 import {totalprice} from '../../Utils'
@@ -13,13 +14,23 @@ const CheckoutSideMenu = () =>{
         closeCheckoutSideMenu,
         cartProduct,
         setCartProduct,
-        handleCheckout
+        handleCheckout,
+        order, 
+        setCount
     } = React.useContext(ShoppingCardContext)
 
     const handleDelete = (id) =>{
         const filteredProducts = cartProduct.filter(product => product.id != id);
         setCartProduct(filteredProducts)
     }
+
+    useEffect(() => {
+    // Calcular la suma total de cantidades y actualizar el count
+    const totalCount = cartProduct.reduce((acc, product) => acc + product.quantity, 0);
+    setCount(totalCount);
+    }, [cartProduct, setCount]);
+
+    console.log(cartProduct)
     return(
         <aside 
         className={`${isCheckoutSideMenuOpen ? 'checkoutSideMenuOpen' : 'checkoutSideMenuClosed'} checkoutSideMenu flex-col fixed right-0 border border-black rounded-lg bg-white`}>
@@ -29,17 +40,17 @@ const CheckoutSideMenu = () =>{
             </div>
             <div className='px-6 overflow-y-scroll max-h-[70%]'>
                 {
-                    cartProduct.map(product=>(
-                        <OrderCard
-                        key={product.id}
-                        id={product.id} 
-                        title={product.title}
-                        imageUrl={product.image}
-                        price={product.price}
-                        quantity={product.quantity} // Mostrar la cantidad en lugar de contar entradas
-                        handleDelete = {handleDelete}
-                        />
-                        ))
+                cartProduct.map(product=>(
+                    <OrderCard
+                    key={product.id}
+                    id={product.id} 
+                    title={product.title}
+                    imageUrl={product.image}
+                    price={product.price}
+                    quantity={product.quantity} // Mostrar la cantidad en lugar de contar entradas
+                    handleDelete = {handleDelete}
+                    />
+                    ))
                 }
             </div>
             <div className='px-6 absolute bottom-0 w-[100%] mb-6'>
@@ -47,7 +58,7 @@ const CheckoutSideMenu = () =>{
                     <samp className='font-medium'>Total:</samp>
                     <span className='font-medium text-2xl'>${totalprice(cartProduct)}</span>
                 </p>
-                <Link to='/my-orders/last' >
+                <Link to={order.length > 0 ? '/my-orders/last' : '/'} >
                     <button className={'bg-black py-3 text-white rounded-lg w-full'} onClick={()=>handleCheckout()}>Checkout</button>
                 </Link>
             </div>

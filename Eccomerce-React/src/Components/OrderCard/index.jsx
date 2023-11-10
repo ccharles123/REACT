@@ -3,7 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 
 const OrderCard = props =>{
     // eslint-disable-next-line react/prop-types
-    const{ id, title, imageUrl, price, quantity, handleDelete } = props
+    const{ id, title, imageUrl, price, quantity, handleDelete, } = props
     // Multiplica las unidades por el precio y muestra solo si tiene decimales:
     let totalUnd = quantity*price
     const formattedUnd = totalUnd % 1 === 0 ? totalUnd : totalUnd.toFixed(2);

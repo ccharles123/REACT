@@ -1,5 +1,8 @@
 import React from "react";
 import { totalprice } from "../Utils";
+import swal from "sweetalert";
+import { useState, useEffect } from "react";
+
 
 
 const ShoppingCardContext = React.createContext();
@@ -31,6 +34,23 @@ function ShoppingCardProvider({children}) {
     //Shopping Cart: Order
     const [order, setOrder] = React.useState([]);
 
+    //consumir nuestra appi
+    const apiUrl = "https://fakestoreapi.com"
+    const [items, setItems] = useState(null)
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`${apiUrl}/products`)
+          const data = await response.json()
+          setItems(data)
+        } catch (error) {
+          console.error(`Oh no, ocurrió un error: ${error}`);
+        }
+      }
+      fetchData()
+    }, [])
+
     const showProduct = (productDetail)=>{
         openProductDetails()
         closeCheckoutSideMenu()
@@ -56,19 +76,30 @@ function ShoppingCardProvider({children}) {
         }
     }
 
-    const handleCheckout = () => { 
+    const handleCheckout = () => {
+        if (cartProduct.length === 0) {
+            swal("Agregar producto", "", "warning")
+        } else {
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${currentDate.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+        })}`;
         const orderToAdd ={
-            data: "01.02.23",
+            data: formattedDate,
             products: cartProduct,
             totalProducts: cartProduct.length,
             totalPrice: totalprice(cartProduct)
         }
-        setOrder([...order, orderToAdd])
+        // Agregar el nuevo pedido al principio de la lista de pedidos
+        setOrder([orderToAdd, ...order]);
         setCartProduct([])
+        swal("Orden Agregada Exitosamente", "", "success")
         setCount(0)
-    }
-
-
+        closeCheckoutSideMenu()
+    }}
+    
     console.log("cartProduct", cartProduct)
     console.log("Order", order)
 
@@ -90,6 +121,8 @@ function ShoppingCardProvider({children}) {
             isCheckoutSideMenuOpen,
             handleCheckout,
             order,
+            items,
+            useEffect
         }}>
             {children}
         </ShoppingCardContext.Provider>
