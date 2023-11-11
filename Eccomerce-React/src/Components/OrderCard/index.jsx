@@ -15,11 +15,11 @@ const OrderCard = props =>{
 
     return(
         <div className="flex justify-between items-center mb-3">
-            <div className='flex items-center gap-2 h-[20%]'>
+            <div className='flex items-center gap-2 h-[40%]'>
                 <figure className='w-20 h-20'>
                     <img className='w-full h-full rounded-lg object-contain' src={imageUrl} alt={title} />
                 </figure>
-            <div className='w-[60%]'>
+            <div className='w-[70%]'>
                 <p className='text-sm font-semibold'>{quantity} Und. </p>
                 <p className='text-sm font-light'>{title}</p>
             </div>

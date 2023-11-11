@@ -7,6 +7,7 @@ const Navbar = () =>{
     const activeStyle = 'underline underline-offset-2'
     const {
         count, 
+        setSearchByCategory,
     } = React.useContext(ShoppingCardContext) 
 
     return (
@@ -20,6 +21,7 @@ const Navbar = () =>{
                 <li>
                     <NavLink 
                         to= '/'
+                        onClick={()=>setSearchByCategory()}
                         className={({ isActive }) =>
                             isActive ? activeStyle : undefined
                 }>
@@ -29,6 +31,7 @@ const Navbar = () =>{
                 <li>
                     <NavLink 
                         to= '/clothes'
+                        onClick={()=>setSearchByCategory("clothing")}
                         className={({ isActive }) =>
                             isActive ? activeStyle : undefined
                 }>
@@ -38,6 +41,7 @@ const Navbar = () =>{
                 <li>
                     <NavLink 
                         to= '/electronics'
+                        onClick={()=>setSearchByCategory("electronics")}
                         className={({ isActive }) =>
                             isActive ? activeStyle : undefined
                     }>
@@ -47,6 +51,7 @@ const Navbar = () =>{
                 <li>
                     <NavLink 
                         to= '/jewelery'
+                        onClick={()=>setSearchByCategory("jewelery")}
                         className={({ isActive }) =>
                             isActive ? activeStyle : undefined
                     }>

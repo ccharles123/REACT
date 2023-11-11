@@ -10,7 +10,6 @@ const ProductDetail = () =>{
         productToShow
     } = React.useContext(ShoppingCardContext)
 
-    console.log("product", productToShow)
 
     return(
         <aside 

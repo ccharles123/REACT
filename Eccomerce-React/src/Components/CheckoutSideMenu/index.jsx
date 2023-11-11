@@ -29,7 +29,6 @@ const CheckoutSideMenu = () =>{
     setCount(totalCount);
     }, [cartProduct, setCount]);
 
-    console.log(cartProduct)
     return(
         <aside 
         className={`${isCheckoutSideMenuOpen ? 'checkoutSideMenuOpen' : 'checkoutSideMenuClosed'} checkoutSideMenu flex-col fixed right-0 border border-black rounded-lg bg-white`}>

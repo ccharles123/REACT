@@ -23,7 +23,7 @@ function ShoppingCardProvider({children}) {
     const openCheckoutSideMenu = ()=>{setIsCheckoutSideMenuOpen(true)};
     const closeCheckoutSideMenu = ()=>{setIsCheckoutSideMenuOpen(false)};
 
-    console.log("open?",isCheckoutSideMenuOpen)
+
 
     //Product Detail * Show product
     const [productToShow, setProductToShow] = React.useState({});
@@ -33,6 +33,13 @@ function ShoppingCardProvider({children}) {
 
     //Shopping Cart: Order
     const [order, setOrder] = React.useState([]);
+
+    //Search Product
+    const [searchByTitle, setSearchByTitle] = React.useState(null)
+    const [filteredItems, setFilteredItems] = useState(null)
+
+    //Search by Category
+    const [searchByCategory, setSearchByCategory] = React.useState(null)
 
     //consumir nuestra API
     const apiUrl = "https://fakestoreapi.com"
@@ -63,7 +70,7 @@ function ShoppingCardProvider({children}) {
         setCount(count + 1)
         
   // Verifica si el producto ya está en el carrito
-        const existingProductIndex = cartProduct.findIndex((product) => product.id === productData.id);
+    const existingProductIndex = cartProduct.findIndex((product) => product.id === productData.id);
 
         if (existingProductIndex !== -1) {
             // Si el producto ya está en el carrito, aumenta la cantidad
@@ -98,11 +105,46 @@ function ShoppingCardProvider({children}) {
             swal("Orden agregada", "", "success")
             setCount(0)
             closeCheckoutSideMenu()
+            setSearchByTitle(null)
+            setSearchByCategory(null)
         }
     }
-    
-    console.log("cartProduct", cartProduct)
-    console.log("Order", order)
+
+    const filteredItemsByTitles = (items, searchByTitle)=>{
+        return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+    }
+
+    const filteredItemsByCategory = (items, searchByCategory)=>{
+        return items?.filter(item => item.category.toLowerCase().includes(searchByCategory.toLowerCase()))
+    }
+
+    const filterBy = (searchType, items, searchByTitle, searchByCategory) =>{
+
+        if (searchType ==="BY_TITLE"){
+            return filteredItemsByTitles(items, searchByTitle)
+        }
+
+        if (searchType ==="BY_CATEGORY"){
+            return filteredItemsByCategory(items, searchByCategory)
+        }
+
+        if (searchType ==="BY_TITLE_AND_CATEGORY"){
+            return filteredItemsByCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+        }
+
+        if (searchType === "NULL"){
+            return items
+        }
+    }
+
+    useEffect(()=>{
+        if (searchByTitle && !searchByCategory) setFilteredItems(filterBy("BY_TITLE", items, searchByTitle, searchByCategory))
+        if (searchByCategory && !searchByTitle) setFilteredItems(filterBy("BY_CATEGORY", items, searchByTitle, searchByCategory))
+        if (!searchByCategory && !searchByTitle) setFilteredItems(filterBy("NULL", items, searchByTitle, searchByCategory))
+        if (searchByCategory && searchByTitle) setFilteredItems(filterBy("BY_TITLE_AND_CATEGORY", items, searchByTitle, searchByCategory))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [items, searchByTitle, searchByCategory])
 
     return(
         <ShoppingCardContext.Provider value={{
@@ -123,7 +165,12 @@ function ShoppingCardProvider({children}) {
             handleCheckout,
             order,
             items,
-            useEffect
+            useEffect,
+            searchByTitle,
+            setSearchByTitle,
+            filteredItems,
+            setSearchByCategory,
+            searchByCategory
         }}>
             {children}
         </ShoppingCardContext.Provider>
