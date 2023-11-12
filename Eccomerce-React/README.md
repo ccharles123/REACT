@@ -69,7 +69,7 @@ ECOMMERCE - SHOPI es una aplicación web desarrollada utilizando **React** y **T
 ## Capturas de Pantalla
 
 **Home**
-![Home](/src/Images/image.png)
+![Home](image.png)
 **Visualización de Productos**
 ![Visualización de Productos](/src/Images/image-1.png)
 **Añadir a la Compra**
