@@ -71,15 +71,15 @@ ECOMMERCE - SHOPI es una aplicación web desarrollada utilizando **React** y **T
 **Home**
 ![Home](../Eccomerce-React/src/Images/image.png)
 **Visualización de Productos**
-![Visualización de Productos](/src/Images/image-1.png)
+![Visualización de Productos](../Eccomerce-React/src/Images/image-1.png)
 **Añadir a la Compra**
-![Añadir a la Compra](/src/Images/image-2.png)
+![Añadir a la Compra](../Eccomerce-React/src/Images/image-2.png)
 **Gestión de Compras:Checkout**
-![Gestión de Compras:Checkout](/src/Images/image-3.png)
+![Gestión de Compras:Checkout](../Eccomerce-React/src/Images/image-3.png)
 **Historial de Compras**
-![Historial de Compras:](/src/Images/image-4.png)
+![Historial de Compras:](../Eccomerce-React/src/Images/image-4.png)
 **Filtrado por Categorías**
-![Filtrado por Categorías:](/src/Images/image-5.png)
+![Filtrado por Categorías:](../Eccomerce-React/src/Images/image-5.png)
 
 ## Contribuciones
 
