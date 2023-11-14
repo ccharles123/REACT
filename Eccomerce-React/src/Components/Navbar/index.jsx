@@ -8,7 +8,14 @@ const Navbar = () =>{
     const {
         count, 
         setSearchByCategory,
+        handleSignOut,
+        signOutContex
     } = React.useContext(ShoppingCardContext) 
+
+    //sign out
+    const signOut = localStorage.getItem("sign-out")
+    const parsedSignOut = JSON.parse(signOut)
+    const isUserSignOut = signOutContex || parsedSignOut
 
     return (
         <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-white">
@@ -17,7 +24,6 @@ const Navbar = () =>{
                     <NavLink to= '/'
                     onClick={()=>setSearchByCategory()}
                     >
-                        
                         Shopi
                     </NavLink>
                 </li>
@@ -86,10 +92,12 @@ const Navbar = () =>{
                 </li>
                 <li>
                     <NavLink 
-                    to= '/sign-in'
-                    className={({ isActive }) =>
-                    isActive ? activeStyle : undefined
-                    }>
+                        to= '/sign-in'
+                        className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                        }
+                        onClick = {()=>handleSignOut()}
+                    >
                         Sign-In
                     </NavLink>
                 </li>

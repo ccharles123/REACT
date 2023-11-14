@@ -1,14 +1,45 @@
 import React from "react";
 import { totalprice } from "../Utils";
-import swal from "sweetalert";
+//import swal from "sweetalert";
 import { useState, useEffect } from "react";
 
 
 
 const ShoppingCardContext = React.createContext();
 
+export const initializeLocalStorage = () =>{
+
+    const accountInLocalStorage = localStorage.getItem('account');
+    const signOutInLocalStorage = localStorage.getItem('sign-out');
+    let parsedAccount
+    let parsedSignOut
+
+    if (!accountInLocalStorage) {
+        localStorage.setItem('account', JSON.stringify({}));
+        parsedAccount = {};
+    } else {
+        parsedAccount = JSON.parse(accountInLocalStorage);
+    }
+
+    if (!signOutInLocalStorage) {
+        localStorage.setItem('sign-out', JSON.stringify(false));
+        parsedSignOut = false;
+    } else {
+        parsedSignOut = JSON.parse(signOutInLocalStorage);
+    }
+    
+    return { parsedAccount, parsedSignOut };
+}
+
 // eslint-disable-next-line react/prop-types
 function ShoppingCardProvider({children}) {
+
+    // My Account
+    const [account, setAccount] = React.useState({})
+    // Sing-In
+    const [signOutContex, setSignOutContex] = React.useState(false)
+
+
     
     //ShoppingCard * Increments Quantity buy Car 
     const [count, setCount] = React.useState(0);
@@ -83,9 +114,16 @@ function ShoppingCardProvider({children}) {
         }
     }
 
+    const handleSignOut = ()=>{
+        const stringifiedSignOut = JSON.stringify(true)
+        localStorage.setItem('sign-out', stringifiedSignOut)
+        setSignOutContex(true)
+    }
+    console.log("signOut",signOutContex)
+
     const handleCheckout = () => {
         if (cartProduct.length === 0) {
-            swal("Agregar producto", "", "warning")
+            alert("Agregar producto", "", "warning")
         } else {
             const currentDate = new Date();
             const formattedDate = `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${currentDate.toLocaleTimeString('en-US', {
@@ -102,7 +140,7 @@ function ShoppingCardProvider({children}) {
             // Agregar el nuevo pedido al principio de la lista de pedidos
             setOrder([orderToAdd, ...order]);
             setCartProduct([])
-            swal("Orden agregada", "", "success")
+            alert("Orden agregada", "", "success")
             setCount(0)
             closeCheckoutSideMenu()
             setSearchByTitle(null)
@@ -170,7 +208,9 @@ function ShoppingCardProvider({children}) {
             setSearchByTitle,
             filteredItems,
             setSearchByCategory,
-            searchByCategory
+            searchByCategory,
+            handleSignOut,
+            signOutContex
         }}>
             {children}
         </ShoppingCardContext.Provider>
